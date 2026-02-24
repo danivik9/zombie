@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject selectedZombie;
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     private int selectedIndex;
     public TMP_Text coinText;
     private int coinCount = 0;
+    public GameObject losePanel;
+    public float fallHeight = -5f;
+    private bool hasLost = false;
     void Start()
     {
         next = InputSystem.actions.FindAction("NextZombie");
@@ -67,5 +71,23 @@ public class GameManager : MonoBehaviour
         }
         timer += Time.deltaTime;
         timerText.text = "Timer: " + timer.ToString("F1") + "s";
+        for (int i = 0; i < zombies.Length; i++)
+        {
+            if (!hasLost && zombies[i].transform.position.y < fallHeight)
+            {
+                hasLost = true;
+                LoseGame();
+            }
+        }
+    }
+    void LoseGame()
+    {
+        losePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // unfreeze game
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

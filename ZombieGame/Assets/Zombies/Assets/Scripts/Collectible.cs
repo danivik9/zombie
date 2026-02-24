@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    
    private GameManager gameManager;
    void Start()
    {
