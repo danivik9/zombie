@@ -9,4 +9,9 @@ public class Collectible : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void Update()
+    {
+        transform.Rotate(0, 90 * Time.deltaTime, 0);
+    }
 }
