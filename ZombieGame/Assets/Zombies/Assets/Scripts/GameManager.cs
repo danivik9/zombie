@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public TMP_Text timerText;
     private float timer;
     private int selectedIndex;
+    public TMP_Text coinText;
+    private int coinCount = 0;
     void Start()
     {
         next = InputSystem.actions.FindAction("NextZombie");
@@ -32,6 +34,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("selected:" + selectedZombie);
     }
 
+    public void AddCoin()
+    {
+        coinCount++;
+        coinText.text = "Coins: " + coinCount;
+    }
     private void Update()
     {
         if (next.WasPressedThisFrame())
